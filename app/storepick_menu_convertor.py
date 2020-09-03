@@ -1,6 +1,42 @@
 import logging
 import sys
 
+
+def validate_column_header(reader: csv.DictReader) -> int:
+    """
+    :param reader: csv file in dictionary format
+    :type reader: csv.DictReader
+    :return num_of_levels:
+    :rtype int:
+
+    This function used to validate CSV column headers
+    """
+
+    headers = reader.fieldnames
+    headers.pop(0)
+
+    remainder = (len(headers) % 3)
+    if remainder > 0:
+        raise Exception('Number of columns are invalid')
+
+    num_of_levels = int((len(headers)) / 3)
+
+    logging.debug(f"number_of_levels {num_of_levels}")
+
+    column_list = []
+    level_number = num_of_levels
+    while level_number > 0:
+        column_list.extend([f"Level {str(level_number)} - Name", f"Level {str(level_number)} - ID",
+                            f"Level {str(level_number)} - URL"])
+        level_number -= 1
+
+    for line in headers:
+        if line not in column_list:
+            raise Exception(f'column name {line} is invalid')
+
+    return num_of_levels
+
+
 FORMAT = '%(levelname)s %(module)s - %(message)s'
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
