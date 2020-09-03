@@ -2,6 +2,7 @@ import logging
 import sys
 import csv
 import json
+from typing import List, Dict
 
 FORMAT = '%(levelname)s %(module)s - %(message)s'
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
@@ -40,6 +41,50 @@ def validate_column_header(reader: csv.DictReader) -> int:
             raise Exception(f'column name {line} is invalid')
 
     return num_of_levels
+
+def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dict) -> List:
+    """
+    :param level_number: number of level exist in csv file
+    :type level_number: int
+    :param level_dict: dictionary of levelNumber_{id}
+    :type level_dict: Dict
+    :param record: row of csv file
+    :type record: Dict
+    :return exist_list:
+    :rtype exist_list: List
+
+    This function return existing list of dict having level details
+    """
+
+    if 'L' + str(level_number) + '_' + record['Level ' + str(level_number - 1) + ' - ID'] in level_dict:
+        exist_list = level_dict['L' + str(level_number) + '_' + record['Level ' + str(level_number - 1) + ' - ID']]
+        exist_list[:] = [d for d in exist_list if d.get('id') != record['Level ' + str(level_number) + ' - ID']]
+    else:
+        exist_list = []
+
+    return exist_list
+
+def make_json(list_of_dict: List, output_file_name: str) -> None:
+    """
+    :param list_of_dict: list having parent child format dictionaries
+    :type list_of_dict: List
+    :param output_file_name: name of output json file
+    :type output_file_name: str
+
+    This Function get list of dict and create json file
+    """
+
+    try:
+        logging.info("make_json")
+        if list_of_dict:
+            with open(output_file_name, 'w') as outfile:
+                json.dump(list_of_dict, outfile, sort_keys=True, indent=2)
+                logging.info("Output file created")
+        else:
+            raise Exception("Either file is empty or no values exit in file")
+
+    except Exception as err:
+        raise Exception(f"Exception while creating json {output_file_name} file",err)
 
 
 def process(reader: csv.DictReader, num_of_levels: int) -> List:
