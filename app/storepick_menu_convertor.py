@@ -42,6 +42,7 @@ def validate_column_header(reader: csv.DictReader) -> int:
 
     return num_of_levels
 
+
 def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dict) -> List:
     """
     :param level_number: number of level exist in csv file
@@ -64,12 +65,13 @@ def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dic
 
     return exist_list
 
-def make_json(list_of_dict: List, output_file_name: str) -> None:
+
+def make_json(list_of_dict: List, output_json_file_name: str) -> None:
     """
     :param list_of_dict: list having parent child format dictionaries
     :type list_of_dict: List
-    :param output_file_name: name of output json file
-    :type output_file_name: str
+    :param output_json_file_name: name of output json file
+    :type output_json_file_name: str
 
     This Function get list of dict and create json file
     """
@@ -77,14 +79,14 @@ def make_json(list_of_dict: List, output_file_name: str) -> None:
     try:
         logging.info("make_json")
         if list_of_dict:
-            with open(output_file_name, 'w') as outfile:
+            with open(output_json_file_name, 'w') as outfile:
                 json.dump(list_of_dict, outfile, sort_keys=True, indent=2)
                 logging.info("Output file created")
         else:
             raise Exception("Either file is empty or no values exit in file")
 
     except Exception as err:
-        raise Exception(f"Exception while creating json {output_file_name} file",err)
+        raise Exception(f"Exception while creating json {output_json_file_name} file", err)
 
 
 def process(reader: csv.DictReader, num_of_levels: int) -> List:
