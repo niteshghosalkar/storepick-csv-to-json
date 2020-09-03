@@ -154,6 +154,10 @@ if __name__ == '__main__':
             d_reader = csv.DictReader(csv_file)
             logging.info("Input file loaded")
 
+            number_of_levels = validate_column_header(d_reader)
+            ordered_final_list_of_dict = process(d_reader, number_of_levels)
+            make_json(ordered_final_list_of_dict, output_file_name)
+
         logging.info('Task completed successfully')
 
     except FileNotFoundError as error:
