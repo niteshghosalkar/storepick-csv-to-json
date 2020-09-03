@@ -1,5 +1,10 @@
 import logging
 import sys
+import csv
+import json
+
+FORMAT = '%(levelname)s %(module)s - %(message)s'
+logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
 
 def validate_column_header(reader: csv.DictReader) -> int:
@@ -37,8 +42,58 @@ def validate_column_header(reader: csv.DictReader) -> int:
     return num_of_levels
 
 
-FORMAT = '%(levelname)s %(module)s - %(message)s'
-logging.basicConfig(level=logging.DEBUG, format=FORMAT)
+def process(reader: csv.DictReader, num_of_levels: int) -> List:
+    """
+    :param reader: csv file in dictionary format
+    :type reader: csv.DictReader
+    :param num_of_levels: count of levels in csv file
+    :type num_of_levels: int
+    :return list_of_dict:
+    :rtype List:
+
+    This function used to read CSV data and prepare list of dict
+    """
+
+    first_level_id_set = set()
+    try:
+        level_dict = {}
+        for record in reader:
+            level_number = num_of_levels
+
+            while level_number > 0:
+                if record['Level ' + str(level_number) + ' - ID']:
+                    if level_number == 1:
+                        first_level_id_set.add(
+                            'L' + str(level_number) + '_' + record['Level ' + str(level_number) + ' - ID'])
+                        level_dict['L' + str(level_number) + '_' + record['Level ' + str(level_number) + ' - ID']] = [
+                            dict(label=record['Level ' + str(level_number) + ' - Name'],
+                                 id=record['Level ' + str(level_number) + ' - ID'],
+                                 link=record['Level ' + str(level_number) + ' - URL'], children=level_dict.get(
+                                    'L' + str(level_number + 1) + '_' + record['Level ' + str(level_number) + ' - ID'],
+                                    []))
+                        ]
+                    else:
+                        exist_list = get_existing_list_of_levels(level_number, level_dict, record)
+
+                        exist_list.append(
+                            dict(label=record['Level ' + str(level_number) + ' - Name'],
+                                 id=record['Level ' + str(level_number) + ' - ID'],
+                                 link=record['Level ' + str(level_number) + ' - URL'], children=level_dict.get(
+                                    'L' + str(level_number + 1) + '_' + record['Level ' + str(level_number) + ' - ID'],
+                                    [])))
+
+                        level_dict['L' + str(level_number) + '_' + record[
+                            'Level ' + str(level_number - 1) + ' - ID']] = exist_list
+
+                level_number -= 1
+
+        logging.debug(level_dict)
+
+        return [level_dict[x][0] for x in first_level_id_set]
+
+    except Exception as err:
+        raise err
+
 
 if __name__ == '__main__':
 
