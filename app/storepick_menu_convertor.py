@@ -179,8 +179,8 @@ if __name__ == '__main__':
 
         args = parser.parse_args()
 
-        logging.info("input file name: " + args.inputFileName +
-                    " Input file name: " + args.outputFileName)
+        logging.info("Input file name: " + args.inputFileName +
+                    " Output file name: " + args.outputFileName)
 
         with open(args.inputFileName, encoding='utf-8') as csv_file:
             d_reader = csv.DictReader(csv_file)
