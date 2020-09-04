@@ -26,10 +26,10 @@ for package requirements
 
 ### How To Run Task: ###
 
-* input file path : ../test/data/data.csv
+* input file path : ../tests/data/data.csv
 * output file path : ../nested_menu.json
 * Open Command prompt
 * Got to project directory /storepick-csv-to-json/app 
 * Run following command :
-    >python storepick_menu_convertor.py ../test/data/data.csv ../nested_menu.json
+    >python storepick_menu_convertor.py ../tests/data/data.csv ../nested_menu.json
 * File will get generate at root level with name /storepick-csv-to-json/nested_menu.json
