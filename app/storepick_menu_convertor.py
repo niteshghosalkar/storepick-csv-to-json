@@ -68,6 +68,27 @@ def generate_level_id_key_for_dict(level_number: int, level_id: int, record: Dic
     return 'L' + str(level_number) + '_' + record['Level ' + str(level_id) + ' - ID']
 
 
+def prepare_dict_for_level(level_number: int, level_dict: Dict, record: Dict) -> Dict:
+    """
+
+    :param level_number: level number
+    :type level_number: int
+    :param level_dict: dictionary of levelNumber_{id}
+    :type level_dict: Dict
+    :param record: row of csv file
+    :type record: Dict
+    :return: dictionary of level
+    :rtype: dict
+    """
+    return dict(label=record['Level ' + str(level_number) + ' - Name'],
+                id=record['Level ' + str(level_number) + ' - ID'],
+                link=record['Level ' + str(level_number) + ' - URL'],
+                children=level_dict.get(
+                    generate_level_id_key_for_dict(level_number + 1,
+                                                   level_number, record),
+                    []))
+
+
 def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dict) -> List:
     """
     :param level_number: number of level exist in csv file
@@ -84,8 +105,8 @@ def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dic
 
     if generate_level_id_key_for_dict(level_number, level_number - 1, record) in level_dict:
         exist_list = level_dict[
-                     generate_level_id_key_for_dict(level_number,
-                     level_number - 1, record)]
+            generate_level_id_key_for_dict(level_number,
+                                           level_number - 1, record)]
         exist_list[:] = [d for d in exist_list
                          if d.get('id') != record['Level ' + str(level_number) + ' - ID']]
     else:
@@ -104,7 +125,7 @@ def make_json(list_of_dict: List, output_json_file_name: str) -> None:
     This Function get list of dict and create json file
     """
 
-    logging.info("make_json")
+    logging.info("make_json method called")
     if list_of_dict:
         with open(output_json_file_name, 'w') as outfile:
             json.dump(list_of_dict, outfile, sort_keys=True, indent=2)
@@ -138,29 +159,17 @@ def process(reader: csv.DictReader, num_of_levels: int) -> List:
                             generate_level_id_key_for_dict(level_number, level_number, record))
                         level_dict[
                             generate_level_id_key_for_dict(level_number,
-                            level_number, record)] = [
-                            dict(label=record['Level ' + str(level_number) + ' - Name'],
-                                 id=record['Level ' + str(level_number) + ' - ID'],
-                                 link=record['Level ' + str(level_number) + ' - URL'],
-                                 children=level_dict.get(
-                                    generate_level_id_key_for_dict(level_number + 1,
-                                    level_number, record),
-                                    []))
+                                                           level_number, record)] = [
+                            prepare_dict_for_level(level_number, level_dict, record)
                         ]
                     else:
                         exist_list = get_existing_list_of_levels(level_number, level_dict, record)
 
                         exist_list.append(
-                            dict(label=record['Level ' + str(level_number) + ' - Name'],
-                                 id=record['Level ' + str(level_number) + ' - ID'],
-                                 link=record['Level ' + str(level_number) + ' - URL'],
-                                 children=level_dict.get(
-                                    generate_level_id_key_for_dict(level_number + 1,
-                                    level_number, record),
-                                    [])))
+                            prepare_dict_for_level(level_number, level_dict, record))
 
                         level_dict[generate_level_id_key_for_dict(level_number,
-                                 level_number - 1, record)] = exist_list
+                                                                  level_number - 1, record)] = exist_list
 
                 level_number -= 1
 
@@ -180,7 +189,7 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         logging.info("Input file name: " + args.inputFileName +
-                    " Output file name: " + args.outputFileName)
+                     " Output file name: " + args.outputFileName)
 
         with open(args.inputFileName, encoding='utf-8') as csv_file:
             d_reader = csv.DictReader(csv_file)
