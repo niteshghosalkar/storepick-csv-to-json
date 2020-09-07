@@ -14,6 +14,7 @@
 
 * python 3.8.5
 * This task is compatible with python version >= 3.6
+* In run.sh file we can change python version from 3.8 to 3.6 if required.
 
 ### Development: ###
 
