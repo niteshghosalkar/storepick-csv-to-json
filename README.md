@@ -20,7 +20,7 @@
 * Used pylint for bug and quality check
 * Used DocString, Typing Module and Type Hint for documentation
 * Used argParser for command-line options, arguments and sub-command
-* requirements.txt file created for packages requirments
+* requirements.txt file created for packages requirements
 
 ### Unit Testing:  ###
 
@@ -29,10 +29,21 @@
 
 ### How To Run Task: ###
 
-* input file path : ../tests/data/data.csv
-* output file path : ../nested_menu.json
-* Open Command prompt
-* Got to project directory /storepick-csv-to-json/app
-* Run following command :
+* Run following command to clone repo bundle
+    >git clone storepick-menu-creator.bundle
+* Got to project directory /storepick-menu-creator/app
+* Run following command in command prompt :
     >python storepick_menu_convertor.py ../tests/data/data.csv ../nested_menu.json
-* File will get generate at root level with name /storepick-csv-to-json/nested_menu.json
+* File will get generate at root level with name /storepick-menu-creator/nested_menu.json
+
+### How to run PyDoc to get module documentation ###
+
+* Got to project directory /storepick-menu-creator/app
+* Run following command in command prompt :
+   >python -m  pydoc -b storepick_menu_convertor
+   Server ready at http://localhost:64954/
+   Server commands: [b]rowser, [q]uit
+* Browser will open with all modules details
+* To stop server type q in same command prompt
+
+

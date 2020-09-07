@@ -20,8 +20,8 @@ def validate_column_header(reader: csv.DictReader) -> int:
     """
     :param reader: csv file in dictionary format
     :type reader: csv.DictReader
-    :return num_of_levels:
-    :rtype int:
+    :return num_of_levels
+    :rtype int
 
     This function used to validate CSV column headers
     """
@@ -97,8 +97,8 @@ def get_existing_list_of_levels(level_number: int, level_dict: Dict, record: Dic
     :type level_dict: Dict
     :param record: row of csv file
     :type record: Dict
-    :return exist_list:
-    :rtype exist_list: List
+    :return exist_list
+    :rtype List
 
     This function return existing list of dict having level details
     """
@@ -140,8 +140,8 @@ def process(reader: csv.DictReader, num_of_levels: int) -> List:
     :type reader: csv.DictReader
     :param num_of_levels: count of levels in csv file
     :type num_of_levels: int
-    :return list_of_dict:
-    :rtype List:
+    :return list_of_dict
+    :rtype List
 
     This function used to read CSV data and prepare list of dict
     """
