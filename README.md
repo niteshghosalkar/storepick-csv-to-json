@@ -1,4 +1,4 @@
-# storepick-csv-to-json
+# storepick-menu-creator
 
 ### Overview: ###
 
@@ -22,10 +22,18 @@
 * Used argParser for command-line options, arguments and sub-command
 * requirements.txt file created for packages requirements
 
-### Unit Testing:  ###
+### How To Run Unit Testing:  ###
 
 * Nose Testing framework has been used for unit testing
+* Run following command to clone repo bundle
+    >git clone storepick-menu-creator.bundle
 * Script test_storepick_menu_convertor.py to runt tests
+* Got to project directory /storepick-menu-creator
+* Run following command in command prompt :
+    >nosetests --with-coverage --cover-erase --cover-package=app --cover-html
+* Will get output with coverage
+* Got to project directory /storepick-menu-creator/cover
+* Open index.html file in browser to see output
 
 ### How To Run Task: ###
 
