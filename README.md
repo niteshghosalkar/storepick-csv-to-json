@@ -72,8 +72,4 @@ OR
    Server commands: [b]rowser, [q]uit
 * Browser will open with all modules details
 * To stop server type q in same command prompt
-OR
-* Run run.sh file with following command
-    >source run.sh && executeCommand pydoc
-
 

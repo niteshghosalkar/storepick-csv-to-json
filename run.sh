@@ -1,29 +1,26 @@
+PYTHON_VERSION=python3.8
+
 executeCommand(){
 
-    OPTION=$1
+  OPTION=$1
 
-    case ${OPTION} in
+  case ${OPTION} in
 
-    "init")
-        python3.8 -m pip install -r ../requirements.txt
-        ;;
+  "init")
+  ${PYTHON_VERSION} -m pip install -r requirements.txt
+  ;;
 
-    "pylint")
-        pylint app
-        ;;
+  "pylint")
+  pylint app
+  ;;
 
-    "coverage")
-        nosetests --with-coverage --cover-erase --cover-package=app --cover-html
-        ;;
+  "coverage")
+  nosetests --with-coverage --cover-erase --cover-package=app --cover-html
+  ;;
 
-    "pydoc")
-        python3.8 -m  pydoc -b storepick_menu_convertor
-        ;;
+  "run")
+  ${PYTHON_VERSION} app/storepick_menu_convertor.py tests/data/data.csv nested_menu.json
+  ;;
 
-    "run")
-      python3.8 storepick_menu_convertor.py ../tests/data/data.csv ../nested_menu.json
-
-
-
-      }
-
+  esac
+}
