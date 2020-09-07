@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
 
 def test_process():
-    with open("data/data.csv", encoding='utf-8') as csvf:
+    with open("tests/data/data.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
 
         headers = csv_reader.fieldnames
@@ -21,7 +21,7 @@ def test_process():
 
 
 def test_process_empty_file():
-    with open("data/test_data_empty_file.csv", encoding='utf-8') as csvf:
+    with open("tests/data/test_data_empty_file.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
 
         headers = csv_reader.fieldnames
@@ -33,7 +33,7 @@ def test_process_empty_file():
 
 
 def test_validate_column_header():
-    with open("data/data.csv", encoding='utf-8') as csvf:
+    with open("tests/data/data.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
 
         validate_column_header(csv_reader)
@@ -41,7 +41,7 @@ def test_validate_column_header():
 
 @raises(Exception)
 def test_validate_column_header_invalid_no_columns():
-    with open("data/test_data_invalid_no_of_columns.csv", encoding='utf-8') as csvf:
+    with open("tests/data/test_data_invalid_no_of_columns.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
 
         validate_column_header(csv_reader)
@@ -49,13 +49,13 @@ def test_validate_column_header_invalid_no_columns():
 
 @raises(Exception)
 def test_validate_column_header_invalid_column_name():
-    with open("data/test_data_invalid_column_name.csv", encoding='utf-8') as csvf:
+    with open("tests/data/test_data_invalid_column_name.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
         validate_column_header(csv_reader)
 
 
 def test_make_json():
-    with open("data/data.csv", encoding='utf-8') as csvf:
+    with open("tests/data/data.csv", encoding='utf-8') as csvf:
         csv_reader = csv.DictReader(csvf)
 
         headers = csv_reader.fieldnames
