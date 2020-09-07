@@ -22,6 +22,18 @@
 * Used argParser for command-line options, arguments and sub-command
 * requirements.txt file created for packages requirements
 
+## How To Check code quality ###
+
+* Run following command to clone repo bundle
+    >git clone storepick-menu-creator.bundle
+* Got to project directory /storepick-menu-creator
+* Run following command in command prompt :
+    >pylint app
+OR
+* Run run.sh file with following command
+    >source run.sh && executeCommand init
+    >source run.sh && executeCommand pylint
+
 ### How To Run Unit Testing:  ###
 
 * Nose Testing framework has been used for unit testing
@@ -34,6 +46,10 @@
 * Will get output with coverage
 * Got to project directory /storepick-menu-creator/cover
 * Open index.html file in browser to see output
+OR
+* Run run.sh file with following command
+    >source run.sh && executeCommand init
+    >source run.sh && executeCommand coverage
 
 ### How To Run Task: ###
 
@@ -43,6 +59,9 @@
 * Run following command in command prompt :
     >python storepick_menu_convertor.py ../tests/data/data.csv ../nested_menu.json
 * File will get generate at root level with name /storepick-menu-creator/nested_menu.json
+OR
+* Run run.sh file with following command
+    >source run.sh && executeCommand run
 
 ### How to run PyDoc to get module documentation ###
 
@@ -53,5 +72,8 @@
    Server commands: [b]rowser, [q]uit
 * Browser will open with all modules details
 * To stop server type q in same command prompt
+OR
+* Run run.sh file with following command
+    >source run.sh && executeCommand pydoc
 
 
