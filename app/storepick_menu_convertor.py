@@ -168,8 +168,9 @@ def process(reader: csv.DictReader, num_of_levels: int) -> List:
                         exist_list.append(
                             prepare_dict_for_level(level_number, level_dict, record))
 
-                        level_dict[generate_level_id_key_for_dict(level_number,
-                                                                  level_number - 1, record)] = exist_list
+                        level_dict[
+                            generate_level_id_key_for_dict(level_number,
+                                level_number - 1, record)] = exist_list
 
                 level_number -= 1
 
@@ -204,5 +205,5 @@ if __name__ == '__main__':
     except FileNotFoundError as error:
         logging.error(" %s file not found ", args.inputFileName)
 
-    except Exception as error:
-        logging.error(error)
+    except Exception as err:
+        logging.exception(err)
