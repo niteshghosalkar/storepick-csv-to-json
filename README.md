@@ -66,7 +66,7 @@ OR
     >git clone storepick-menu-creator.bundle
 * Go to project directory /storepick-menu-creator
 * Run following command in command prompt :
-    >python storepick_menu_convertor.py tests/data/data.csv nested_menu.json
+    >python app/storepick_menu_convertor.py tests/data/data.csv nested_menu.json
 * File will get generate at root level with name /storepick-menu-creator/nested_menu.json
 OR
 * Run run.sh file with following command
