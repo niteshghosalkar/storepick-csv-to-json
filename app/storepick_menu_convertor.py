@@ -185,7 +185,7 @@ def process(reader: csv.DictReader, num_of_levels: int) -> List:
 if __name__ == '__main__':
 
     try:
-        logging.info('Task Started')
+        logging.info('Task Started ')
 
         args = parser.parse_args()
 
